@@ -18,6 +18,11 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
+
+::selection {
+  background-color: #fbff3a;
+  color: black;
+}
 a {
   color: inherit;
 }

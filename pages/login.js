@@ -31,8 +31,8 @@ const register = () => {
               <Image
                 src="/login-illustration.svg"
                 alt="Picture of the author"
-                width={700}
-                height={475}
+                width={600}
+                height={500}
               />
             </Col>
             <Col xs={24} lg={10}>
@@ -103,9 +103,7 @@ const register = () => {
                   </Form.Item>
                 </Form>
                 <p className="text-center">
-                  <span className="text-muted">
-                    Don't you have an account?
-                  </span>
+                  <span className="text-muted">Don't you have an account?</span>
                   <Link href="/register">
                     <a>
                       <i>Register</i>

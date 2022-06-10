@@ -94,6 +94,7 @@ const register = () => {
                   >
                     <Button
                       type="primary"
+                      danger
                       htmlType="submit"
                       className="w-100"
                       size="large"

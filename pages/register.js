@@ -1,14 +1,21 @@
 import Layout from '../components/Layout'
+import { useDispatch, useSelector } from 'react-redux'
 import React from 'react'
 import Head from 'next/head'
 import { Col, Modal, Row, Button, Input, Card, Form } from 'antd'
 import Image from 'next/image'
 import { Typography } from 'antd'
 import Link from 'next/link'
+import { registerUser } from '../src/features/auth/authSlice'
+
 const { Title, Paragraph } = Typography
+
 const register = () => {
+  const dispatch = useDispatch()
+  const authorization = useSelector((state) => state.authentication)
+
   const onFinish = (values) => {
-    console.log('Success:', values)
+    dispatch(registerUser(values))
   }
 
   const onFinishFailed = (errorInfo) => {
@@ -122,7 +129,6 @@ const register = () => {
                   >
                     <Input.Password size="large" placeholder="Password Again" />
                   </Form.Item>
-
                   <Form.Item
                     wrapperCol={{
                       span: 24

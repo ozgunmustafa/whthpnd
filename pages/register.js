@@ -19,7 +19,7 @@ const register = () => {
   }
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
+    //console.log('Failed:', errorInfo)
   }
   return (
     <Layout
@@ -138,6 +138,7 @@ const register = () => {
                       type="primary"
                       danger
                       htmlType="submit"
+                      loading={authorization.loading ? true : false}
                       className="w-100"
                       size="large"
                     >

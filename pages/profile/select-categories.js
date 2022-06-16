@@ -1,11 +1,12 @@
 import React from 'react'
 import { Col, Modal, Row, Button, Input, Card } from 'antd'
 import Head from 'next/head'
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout'
 import { Typography } from 'antd'
-import Avvatar from '../components/Avvatar'
+import Avvatar from '../../components/Avvatar'
 import { Avatar } from 'antd'
 import Link from 'next/link'
+import { useDispatch, useSelector } from 'react-redux'
 
 import {
   BookmarkIcon,
@@ -13,7 +14,7 @@ import {
   CommentsIcon,
   ShareIcon,
   ShieldSvg
-} from '../components/CustomIcons'
+} from '../../components/CustomIcons'
 import Icon, {
   InstagramOutlined,
   FacebookOutlined,
@@ -24,12 +25,16 @@ import Icon, {
   UserOutlined,
   FormOutlined
 } from '@ant-design/icons'
-import ActionButton from '../components/ActionButton'
+import ActionButton from '../../components/ActionButton'
+import { getAllCategories } from '../../src/features/categories/categorySlice'
 
 const { Title, Paragraph } = Typography
 const ShieldIcon = (props) => <Icon component={ShieldSvg} {...props} />
 
-export default function Home() {
+export default function SelectCategories() {
+  const dispatch = useDispatch()
+  const dataCategory = useSelector((state) => state.categories.data)
+
   const [feedData, setFeedData] = React.useState([
     {
       id: 1,
@@ -268,7 +273,10 @@ export default function Home() {
   const [expandTopics, setExpandTopics] = React.useState(false)
   const [modalType, setModalType] = React.useState('share')
   const [activeFeedComments, setActiveFeedComments] = React.useState([])
-
+  
+  React.useEffect(() => {
+    dispatch(getAllCategories())
+  }, [])
   const showModal = (type) => {
     setIsModalVisible(true)
     setModalType(type)
@@ -323,7 +331,9 @@ export default function Home() {
             </div>
           </div>
         ) : modalType === 'comments' ? (
-          activeFeedComments.map((item) => <p>{item.question}</p>)
+          activeFeedComments.map((item, index) => (
+            <p key={index + 'q'}>{item.question}</p>
+          ))
         ) : (
           ''
         )}
@@ -343,11 +353,13 @@ export default function Home() {
             <Row gutter={20}>
               <Col className="gutter-row " span={16}>
                 <section>
-                  {' '}
-                  {feedData.map((feedItem) => (
+                  {dataCategory.data.map((item) => (
+                    <p>{item.title}</p>
+                  ))}
+                  {feedData.map((feedItem, index) => (
                     <div
                       className="card-padding-responsive bg-white radius-1 border-bottom-light"
-                      key={'feed-' + feedItem.category}
+                      key={'feed-' + index + feedItem.category}
                     >
                       <Avvatar
                         size={35}
@@ -476,8 +488,8 @@ export default function Home() {
                       'highlight-topics ' + (expandTopics ? 'expanded ' : '')
                     }
                   >
-                    {feedCategories.map((category) => (
-                      <li>
+                    {feedCategories.map((category, index) => (
+                      <li key={index + 'c'}>
                         <a href="">{category.category}</a>
                       </li>
                     ))}
@@ -496,7 +508,7 @@ export default function Home() {
                 <section className="section-padding-2">
                   <Title level={5}>Following</Title>
                   {[...Array(5)].map((e, i) => (
-                    <Link href="/profile">
+                    <Link href="/profile" key={'profile' + i}>
                       <a>
                         <div className="mb-2">
                           <Avvatar

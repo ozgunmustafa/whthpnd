@@ -1,3 +1,8 @@
+a {
+  &:hover {
+    color: #14a800;
+  }
+}
 .ant-btn {
   &-text {
     //background-color: #f2f2f2;
@@ -10,6 +15,12 @@
   .ant-card-head-title {
     font-size: 20px;
     font-weight: 600;
+  }
+}
+.category-list-card {
+  border-color: #cbcbcb;
+  .ant-card-body {
+    padding: 0.75rem 1rem;
   }
 }
 

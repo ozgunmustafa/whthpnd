@@ -1,18 +1,24 @@
 import Layout from '../components/Layout'
+import { useDispatch, useSelector } from 'react-redux'
+
 import React from 'react'
 import Head from 'next/head'
 import { Col, Modal, Row, Button, Input, Card, Form } from 'antd'
 import Image from 'next/image'
 import { Typography } from 'antd'
 import Link from 'next/link'
+import { loginUser } from '../src/features/auth/authSlice'
 const { Title, Paragraph } = Typography
-const register = () => {
+const login = () => {
+  const dispatch = useDispatch()
+  const authorization = useSelector((state) => state.authentication)
+
   const onFinish = (values) => {
-    console.log('Success:', values)
+    dispatch(loginUser(values))
   }
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
+    //console.log('Failed:', errorInfo)
   }
   return (
     <Layout
@@ -21,7 +27,7 @@ const register = () => {
       headerEnabled={false}
     >
       <Head>
-        <title>Whthpnd | Register</title>
+        <title>Whthpnd | Login</title>
         <meta name="description" content="What Happened Home Page" />
       </Head>
       <section className="">
@@ -31,8 +37,8 @@ const register = () => {
               <Image
                 src="/login-illustration.svg"
                 alt="Picture of the author"
-                width={600}
-                height={500}
+                width={500}
+                height={400}
               />
             </Col>
             <Col xs={24} lg={10}>
@@ -72,7 +78,10 @@ const register = () => {
                       }
                     ]}
                   >
-                    <Input size="large" placeholder="Email" />
+                    <Input
+                      size="large"
+                      placeholder="Email"
+                    />
                   </Form.Item>
 
                   <Form.Item
@@ -84,7 +93,11 @@ const register = () => {
                       }
                     ]}
                   >
-                    <Input.Password size="large" placeholder="Password" />
+                    <Input.Password
+                      size="large"
+                      placeholder="Password"
+
+                    />
                   </Form.Item>
 
                   <Form.Item
@@ -98,6 +111,7 @@ const register = () => {
                       htmlType="submit"
                       className="w-100"
                       size="large"
+                      loading={authorization.loading ? true : false}
                     >
                       Login
                     </Button>
@@ -111,6 +125,7 @@ const register = () => {
                     </a>
                   </Link>
                 </p>
+               
               </Card>
             </Col>
           </Row>
@@ -120,4 +135,4 @@ const register = () => {
   )
 }
 
-export default register
+export default login

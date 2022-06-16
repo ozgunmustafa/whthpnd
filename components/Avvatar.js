@@ -2,7 +2,6 @@ import { Avatar } from 'antd'
 import React from 'react'
 
 const Avvatar = (props) => {
-  console.log(props)
   return (
     <div className="d-flex align-items-center">
       <Avatar {...props} />

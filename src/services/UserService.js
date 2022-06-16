@@ -13,12 +13,6 @@ class UserService {
   getUser(id) {
     return api.get(`/users/${id}`)
   }
-
-  update(id, data) {
-    return api.put(`/tutorials/${id}`, data)
-  }
-  delete(id) {
-    return api.delete(`/tutorials/${id}`)
-  }
+ 
 }
 export default new UserService()

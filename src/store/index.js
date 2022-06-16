@@ -4,8 +4,8 @@ import categorySlice from "../features/categories/categorySlice";
 
 const store = configureStore({
   reducer: {
-    categories: categorySlice,
-    authentication:authSlice
+    authentication:authSlice,
+    categories: categorySlice
   }
 })
 

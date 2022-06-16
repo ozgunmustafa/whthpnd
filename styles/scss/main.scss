@@ -40,6 +40,16 @@ a {
 .text-center {
   text-align: center;
 }
+.px-0 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.p-1 {
+  padding: 0.75rem !important;
+}
+.mr-1 {
+  margin-right: 0.5rem;
+}
 .mr-2 {
   margin-right: 0.75rem;
 }
@@ -127,6 +137,7 @@ button {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  padding: 0 clamp(0.75rem, 3%, 2rem);
 }
 .d-flex {
   display: flex;
@@ -139,6 +150,43 @@ button {
 }
 .text-muted {
   color: var(--text-gray);
+}
+.placeholder {
+  position: relative;
+  cursor: progress;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-color: #e0e0e0;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: placeholderAnimate;
+    background: linear-gradient(
+      210deg,
+      rgba(255, 255, 255, 0.274) 0%,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0) 150%
+    );
+  }
+  &-item {
+    background: #e8e8e8;
+  }
+  &-item_rounded {
+    border-radius: 50%;
+  }
+  &-item_pill {
+    border-radius: 50em;
+  }
+  &-item_line {
+    min-width: 50px;
+  }
 }
 .justify-content {
   &-center {
@@ -272,6 +320,15 @@ button {
 @for $i from 1 through 9 {
   .fw-#{$i*100} {
     font-weight: $i * 100;
+  }
+}
+
+@keyframes placeholderAnimate {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
   }
 }
 

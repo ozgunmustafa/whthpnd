@@ -26,150 +26,19 @@ import Icon, {
   FormOutlined
 } from '@ant-design/icons'
 import ActionButton from '../../components/ActionButton'
-import { getAllCategories } from '../../src/features/categories/categorySlice'
+import { getAllCategories, selectAllCategories } from '../../src/features/categories/categorySlice'
+import ReactionButtons from '../../components/ReactionButtons'
 
 const { Title, Paragraph } = Typography
 const ShieldIcon = (props) => <Icon component={ShieldSvg} {...props} />
+
+const categories = useSelector(selectAllCategories);
 
 export default function SelectCategories() {
   const dispatch = useDispatch()
   const dataCategory = useSelector((state) => state.categories.data)
 
-  const [feedData, setFeedData] = React.useState([
-    {
-      id: 1,
-      publisher: {
-        name: 'Fosinopril sodium',
-        username: 'fosodium'
-      },
-      category: 'Marketing',
-      gender: 'Female',
-      question:
-        'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus.',
-      comments: [
-        {
-          publisher:
-            'Acetaminophen, Dextromethorphan Hydrobromide, Doxylamine Succinate',
-          gender: 'Non-binary',
-          question:
-            'Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt.'
-        }
-      ],
-      bookmarked: false
-    },
-    {
-      id: 2,
-      publisher: {
-        name: 'Lamb Quarters',
-        username: 'lambQua'
-      },
-      category: 'Research and Development',
-      gender: 'Female',
-      question: 'Duis bibendum. Morbi non quam nec dui luctus rutrum.',
-      comments: [
-        {
-          publisher:
-            'Acetaminophen, Dextromethorphan Hydrobromide, Doxylamine Succinate',
-          gender: 'Non-binary',
-          question:
-            'Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt.'
-        }
-      ],
-      bookmarked: true
-    },
-    {
-      id: 3,
-      publisher: {
-        name: 'Rromethazine Quarters',
-        username: 'promethazine'
-      },
-      category: 'Engineering',
-      gender: 'Female',
-      question:
-        'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis.',
-      comments: [
-        {
-          publisher: 'LATANOPROST',
-          gender: 'Male',
-          question:
-            'Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh.'
-        },
-        {
-          publisher: 'ustilago maydis',
-          gender: 'Polygender',
-          question:
-            'Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend.'
-        },
-        {
-          publisher:
-            'Acetaminophen, Dextromethorphan Hydrobromide, Doxylamine Succinate',
-          gender: 'Non-binary',
-          question:
-            'Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt.'
-        }
-      ],
-      bookmarked: false
-    },
-    {
-      id: 4,
-      publisher: {
-        name: 'Octinoxate, Octisalate',
-        username: 'octisalate'
-      },
-      gender: 'Male',
-      category: 'Research and Development',
-      question:
-        'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim.',
-      comments: [
-        {
-          publisher: 'LATANOPROST',
-          gender: 'Male',
-          question:
-            'Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh.'
-        },
-        {
-          publisher: 'ustilago maydis',
-          gender: 'Polygender',
-          question:
-            'Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend.'
-        },
-        {
-          publisher:
-            'Acetaminophen, Dextromethorphan Hydrobromide, Doxylamine Succinate',
-          gender: 'Non-binary',
-          question:
-            'Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt.'
-        }
-      ],
-      bookmarked: true
-    },
-    {
-      id: 5,
-      publisher: {
-        name: 'Promethazine Hydrochloride',
-        username: 'hydrochloride'
-      },
-      gender: 'Female',
-      category: 'Research and Development',
-      question:
-        'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat. Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.',
-      comments: [
-        {
-          publisher: 'LATANOPROST',
-          gender: 'Male',
-          question:
-            'Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh.'
-        },
-        {
-          publisher: 'ustilago maydis',
-          gender: 'Polygender',
-          question:
-            'Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend.'
-        }
-      ],
-      bookmarked: true
-    }
-  ])
+  
   const [feedCategories, setFeedCategories] = React.useState([
     {
       category: 'Marketing',
@@ -289,6 +158,8 @@ export default function SelectCategories() {
   const handleCancel = () => {
     setIsModalVisible(false)
   }
+
+
   return (
     <>
       <Modal
@@ -356,7 +227,7 @@ export default function SelectCategories() {
                   {dataCategory.data.map((item) => (
                     <p>{item.title}</p>
                   ))}
-                  {feedData.map((feedItem, index) => (
+                  {categories && categories.map((feedItem, index) => (
                     <div
                       className="card-padding-responsive bg-white radius-1 border-bottom-light"
                       key={'feed-' + index + feedItem.category}
@@ -404,6 +275,11 @@ export default function SelectCategories() {
                           text="Yer İşareti"
                           style={{ marginRight: '7px', color: '#919191' }}
                         />
+                      </div>
+                      <div className='d-flex'>
+                          
+                        <ReactionButtons categories={feedItem} />
+
                       </div>
                     </div>
                   ))}
